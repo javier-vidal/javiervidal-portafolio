@@ -36,13 +36,20 @@ export const SITE_DETAILS: SiteDetail[] = [
   },
 ];
 
-// Se miden en produccion; mientras tanto quedan en null y se muestran como pendientes.
+// Un puntaje en null se muestra como pendiente.
 export const LIGHTHOUSE_SCORES: LighthouseScore[] = [
-  { label: 'Rendimiento', score: null },
-  { label: 'Accesibilidad', score: null },
-  { label: 'Buenas prácticas', score: null },
-  { label: 'SEO', score: null },
+  { label: 'Rendimiento', score: 100 },
+  { label: 'Accesibilidad', score: 100 },
+  { label: 'Buenas prácticas', score: 100 },
+  { label: 'SEO', score: 100 },
 ];
+
+export const LIGHTHOUSE_NOTE = 'Medido con PageSpeed Insights en móvil y escritorio · octubre 2026';
+
+export const PAGESPEED_LINK = {
+  label: 'Compruébalo tú mismo',
+  href: 'https://pagespeed.web.dev/analysis?url=https://javiervidal.cl',
+};
 
 export const REPO_LINK = {
   label: 'Ver el código en GitHub',

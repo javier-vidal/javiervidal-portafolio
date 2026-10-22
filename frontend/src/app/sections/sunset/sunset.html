@@ -2,9 +2,19 @@
   <app-section-heading time="18:00" [heading]="contact.title" headingId="contacto-title" />
   <p>{{ contact.text }}</p>
   <ul class="links">
-    <li><a [href]="'mailto:' + contact.email">{{ contact.email }}</a></li>
+    <li>
+      <a class="icon-link" [href]="'mailto:' + contact.email">
+        <app-icon name="mail" />
+        <span>{{ contact.email }}</span>
+      </a>
+    </li>
     @if (contact.linkedinUrl; as linkedinUrl) {
-      <li><a [href]="linkedinUrl" rel="noopener">LinkedIn</a></li>
+      <li>
+        <a class="icon-link" [href]="linkedinUrl" rel="noopener">
+          <app-icon name="linkedin" />
+          <span>LinkedIn</span>
+        </a>
+      </li>
     }
     @if (contact.cvUrl; as cvUrl) {
       <li><a [href]="cvUrl" download>Descargar CV</a></li>

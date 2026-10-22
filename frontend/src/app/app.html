@@ -3,7 +3,8 @@
   <app-training />
   <app-route />
   <app-menu />
-  <app-sunset />
+  <!-- Cloudflare reescribe el correo en el HTML servido; esta seccion se vuelve a renderizar en vez de hidratarse. -->
+  <app-sunset ngSkipHydration />
   <app-how-its-made />
 </main>
 <footer class="muted">{{ footer }}</footer>

@@ -29,6 +29,24 @@ a {
   text-underline-offset: 0.2em;
 }
 
+/* Enlaces con logo de GitHub y LinkedIn. */
+.icon-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  color: var(--text);
+  text-decoration-color: var(--accent);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 a:focus-visible,
 button:focus-visible {
   outline: 2px solid var(--accent);

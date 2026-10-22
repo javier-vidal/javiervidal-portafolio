@@ -19,6 +19,17 @@
       </div>
     }
   </dl>
+  <p class="scores-note muted">
+    {{ scoresNote }} ·
+    <a [href]="pagespeedLink.href" target="_blank" rel="noopener noreferrer">
+      {{ pagespeedLink.label }}<span class="sr-only"> (se abre en una pestaña nueva)</span>
+    </a>
+  </p>
 
-  <p><a [href]="repoLink.href" rel="noopener">{{ repoLink.label }}</a></p>
+  <p>
+    <a class="icon-link" [href]="repoLink.href" rel="noopener">
+      <app-icon name="github" />
+      <span>{{ repoLink.label }}</span>
+    </a>
+  </p>
 </section>
