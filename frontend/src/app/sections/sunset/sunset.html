@@ -10,9 +10,9 @@
     </li>
     @if (contact.linkedinUrl; as linkedinUrl) {
       <li>
-        <a class="icon-link" [href]="linkedinUrl" rel="noopener">
+        <a class="icon-link" [href]="linkedinUrl" target="_blank" rel="noopener noreferrer">
           <app-icon name="linkedin" />
-          <span>LinkedIn</span>
+          <span>LinkedIn<span class="sr-only"> (se abre en una pestaña nueva)</span></span>
         </a>
       </li>
     }

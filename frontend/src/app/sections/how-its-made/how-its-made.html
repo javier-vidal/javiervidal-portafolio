@@ -27,9 +27,9 @@
   </p>
 
   <p>
-    <a class="icon-link" [href]="repoLink.href" rel="noopener">
+    <a class="icon-link" [href]="repoLink.href" target="_blank" rel="noopener noreferrer">
       <app-icon name="github" />
-      <span>{{ repoLink.label }}</span>
+      <span>{{ repoLink.label }}<span class="sr-only"> (se abre en una pestaña nueva)</span></span>
     </a>
   </p>
 </section>
