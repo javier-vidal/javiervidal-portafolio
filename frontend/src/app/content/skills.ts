@@ -9,7 +9,7 @@ export const SKILLS_SECTION = {
   title: 'Entrenamiento',
   intro:
     'Como en cualquier ejercicio corporal o deporte, cada habilidad tiene su progresión. Estas son las mías.',
-  footnote: 'Forma de trabajo: Scrum · Kanban · equipos ágiles',
+  footnote: 'Forma de trabajo: Scrum · Kanban · equipos ágiles · Jira · Slack',
 };
 
 // Rango maximo de la progresion; define cuantas barras se dibujan.
@@ -39,12 +39,16 @@ export const SKILL_LEVELS: SkillLevel[] = [
     skills: [
       'Vue.js',
       'React Native',
+      'PHP',
+      'Laravel',
       'Redux',
       'Zustand',
       'Material UI',
       'React Hook Form + Zod',
       'MongoDB',
+      'Firebase (Firestore)',
       'MySQL',
+      'Docker',
       'Git',
       'GitHub y GitLab',
       'Postman',
@@ -55,7 +59,7 @@ export const SKILL_LEVELS: SkillLevel[] = [
     name: 'En entornos configurados',
     rank: 2,
     description: 'Lo uso dentro de infraestructura ya montada por un equipo.',
-    skills: ['AWS Cognito', 'DynamoDB', 'Docker', 'Kubernetes (AWS EKS)', 'GitLab CI/CD'],
+    skills: ['AWS Cognito', 'DynamoDB', 'Kubernetes (AWS EKS)', 'GitLab CI/CD'],
   },
   {
     name: 'En progresión',

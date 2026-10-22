@@ -20,7 +20,7 @@ export const MAIN_STOPS: ExperienceStop[] = [
     role: 'Development Engineer',
     period: 'Marzo 2025 – Actualidad',
     summary:
-      'Desarrollo aplicaciones para el sector público con Next.js y React en el frontend, y Node.js con Express en el backend, organizado en capas y conectado a PostgreSQL y MongoDB. Trabajo con autenticación en AWS Cognito y acompaño los despliegues en Kubernetes mediante GitLab CI/CD, revisando y siguiendo los pipelines cuando algo falla.',
+      'Desarrollo aplicaciones para el sector público con Next.js y React en el frontend, y Node.js con Express en el backend, organizado en capas y conectado a PostgreSQL y MongoDB. Trabajo con autenticación en AWS Cognito, uso Docker en el desarrollo y acompaño los despliegues en Kubernetes mediante GitLab CI/CD, revisando y siguiendo los pipelines cuando algo falla.',
   },
   {
     name: 'Propal',
@@ -41,7 +41,7 @@ export const MAIN_STOPS: ExperienceStop[] = [
     role: 'Web Developer',
     period: 'Octubre 2022 – Actualidad',
     summary:
-      'Desarrollo interfaces con Vue.js y React en proyectos de largo plazo, trabajando en sprints con un equipo ágil y gestionando pull requests en GitHub.',
+      'Desarrollo interfaces con Vue.js y React en proyectos de largo plazo, y apoyo en tareas de backend con PHP y Laravel, usando Firebase (Firestore) como base de datos en algunos proyectos. Trabajo en sprints con un equipo ágil, coordinado con Jira y Slack, y gestiono pull requests en GitHub.',
     parallel: true,
   },
 ];
