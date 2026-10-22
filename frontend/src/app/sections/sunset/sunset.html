@@ -1,6 +1,13 @@
 <section id="contacto" class="section" aria-labelledby="contacto-title">
   <app-section-heading time="18:00" [heading]="contact.title" headingId="contacto-title" />
   <p>{{ contact.text }}</p>
+  <!-- El formulario se descarga aparte, cuando el navegador queda libre tras cargar la pagina. -->
+  @defer (on idle) {
+    <app-contact-form />
+  } @placeholder {
+    <div class="form-placeholder"></div>
+  }
+  <p class="alternatives">{{ contact.alternativesText }}</p>
   <ul class="links">
     <li>
       <a class="icon-link" [href]="'mailto:' + contact.email">

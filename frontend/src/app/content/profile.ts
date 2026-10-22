@@ -13,6 +13,7 @@ export interface Profile {
 export interface Contact {
   title: string;
   text: string;
+  alternativesText: string;
   email: string;
   linkedinUrl: string | null;
   cvUrl: string | null;
@@ -33,6 +34,7 @@ export const PROFILE: Profile = {
 export const CONTACT: Contact = {
   title: '¿Conversamos?',
   text: 'Si tienes un proyecto en mente, una oportunidad laboral o quieres saber más de mi trabajo, escríbeme. Respondo todos los mensajes.',
+  alternativesText: 'Si prefieres, también puedes escribirme directamente o encontrarme en LinkedIn:',
   email: 'dev@javiervidal.cl',
   linkedinUrl: 'https://www.linkedin.com/in/javier-vidal-desarrollador-web',
   // CV descargable fuera por ahora.

@@ -1,0 +1,65 @@
+<form class="contact-form" novalidate (submit)="onSubmit($event)">
+  <div class="field">
+    <label for="contact-name">Nombre</label>
+    <input
+      id="contact-name"
+      type="text"
+      autocomplete="name"
+      [formField]="contactForm.name"
+      [attr.aria-invalid]="fieldError(contactForm.name) ? 'true' : null"
+      [attr.aria-describedby]="fieldError(contactForm.name) ? 'contact-name-error' : null"
+    />
+    @if (fieldError(contactForm.name); as error) {
+      <p id="contact-name-error" class="field-error">{{ error }}</p>
+    }
+  </div>
+
+  <div class="field">
+    <label for="contact-email">Correo</label>
+    <input
+      id="contact-email"
+      type="email"
+      autocomplete="email"
+      [formField]="contactForm.email"
+      [attr.aria-invalid]="fieldError(contactForm.email) ? 'true' : null"
+      [attr.aria-describedby]="fieldError(contactForm.email) ? 'contact-email-error' : null"
+    />
+    @if (fieldError(contactForm.email); as error) {
+      <p id="contact-email-error" class="field-error">{{ error }}</p>
+    }
+  </div>
+
+  <div class="field">
+    <label for="contact-message">Mensaje</label>
+    <textarea
+      id="contact-message"
+      rows="6"
+      [formField]="contactForm.message"
+      [attr.aria-invalid]="fieldError(contactForm.message) ? 'true' : null"
+      [attr.aria-describedby]="fieldError(contactForm.message) ? 'contact-message-error' : null"
+    ></textarea>
+    @if (fieldError(contactForm.message); as error) {
+      <p id="contact-message-error" class="field-error">{{ error }}</p>
+    }
+  </div>
+
+  <!-- Honeypot: fuera de pantalla, oculto a lectores de pantalla y fuera del orden de tabulacion. -->
+  <div class="honeypot" aria-hidden="true">
+    <label for="contact-website">Sitio web</label>
+    <input id="contact-website" type="text" tabindex="-1" autocomplete="off" [formField]="contactForm.website" />
+  </div>
+
+  <app-turnstile-widget
+    [siteKey]="siteKey"
+    (tokenChange)="token.set($event)"
+    (loadFailed)="onTurnstileFailed()"
+  />
+
+  <button type="submit" class="submit" [disabled]="contactForm().submitting()">
+    {{ contactForm().submitting() ? 'Enviando…' : 'Enviar mensaje' }}
+  </button>
+
+  <p class="status" [class.error]="status()?.kind === 'error'" role="status" aria-live="polite">
+    {{ status()?.text }}
+  </p>
+</form>

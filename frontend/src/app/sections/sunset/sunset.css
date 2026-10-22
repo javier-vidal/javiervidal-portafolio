@@ -1,7 +1,17 @@
+/* Reserva el alto aproximado del formulario para que la pagina no salte al cargarlo. */
+.form-placeholder {
+  min-height: 36rem;
+}
+
+.alternatives {
+  margin: 2.5rem 0 0;
+  color: var(--text-muted);
+}
+
 .links {
   display: grid;
   gap: 0.75rem;
-  margin: 1.5rem 0 0;
+  margin: 1rem 0 0;
   padding: 0;
   list-style: none;
   font-size: 1.125rem;
