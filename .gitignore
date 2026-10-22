@@ -3,6 +3,9 @@
 .env.*
 !.env.example
 
+# Binario de Go si se compila con go build
+/backend/backend
+
 # Sistema y editores
 .DS_Store
 .vscode/

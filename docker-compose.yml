@@ -9,3 +9,16 @@ services:
     volumes:
       - ./frontend/src:/app/src
       - ./frontend/public:/app/public
+
+  backend:
+    build: ./backend
+    ports:
+      - "8090:8090"
+    # Copiar backend/.env.example a backend/.env antes del primer arranque.
+    env_file:
+      - ./backend/.env
+    # Go no recarga solo: con "docker compose watch" se reconstruye al guardar.
+    develop:
+      watch:
+        - path: ./backend
+          action: rebuild
