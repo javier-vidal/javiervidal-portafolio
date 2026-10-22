@@ -1,6 +1,10 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
-import { provideClientHydration } from '@angular/platform-browser';
+import { provideClientHydration, withNoIncrementalHydration } from '@angular/platform-browser';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideBrowserGlobalErrorListeners(), provideClientHydration()],
+  providers: [
+    provideBrowserGlobalErrorListeners(),
+    // Sin hidratacion incremental el HTML no lleva scripts en linea, lo que permite una CSP estricta.
+    provideClientHydration(withNoIncrementalHydration()),
+  ],
 };

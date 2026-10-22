@@ -6,7 +6,7 @@
   --surface: rgb(255 255 255 / 0.6);
   --line: rgb(31 42 51 / 0.15);
 
-  /* Amanecer, valor inicial antes de hacer scroll. */
+  /* Arranque, valor inicial antes de hacer scroll. */
   --bg: #fdf1e6;
   --accent: #a8432e;
 }
