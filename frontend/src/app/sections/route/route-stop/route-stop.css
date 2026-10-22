@@ -1,0 +1,24 @@
+:host {
+  display: block;
+}
+
+h3 {
+  margin: 0;
+  font-size: 1.125rem;
+}
+
+p {
+  margin: 0.4rem 0 0;
+}
+
+.parallel {
+  border-style: dashed;
+}
+
+.tag {
+  margin: 0 0 0.4rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}

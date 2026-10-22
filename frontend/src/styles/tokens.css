@@ -1,0 +1,42 @@
+/* Paleta costera por fase del dia. La fase la define DayCycle en <html data-phase>. */
+:root {
+  --radius: 0.75rem;
+  --text: #1f2a33;
+  --text-muted: #4a5863;
+  --surface: rgb(255 255 255 / 0.6);
+  --line: rgb(31 42 51 / 0.15);
+
+  /* Amanecer, valor inicial antes de hacer scroll. */
+  --bg: #fdf1e6;
+  --accent: #a8432e;
+}
+
+:root[data-phase='morning'] {
+  --bg: #eef6f7;
+  --accent: #135d74;
+}
+
+:root[data-phase='noon'] {
+  --bg: #f4f8fb;
+  --accent: #0f5670;
+}
+
+:root[data-phase='afternoon'] {
+  --bg: #f6efe2;
+  --accent: #85500f;
+}
+
+:root[data-phase='sunset'] {
+  --bg: #fbe5d6;
+  --accent: #9c3a29;
+}
+
+/* La noche es oscura aunque el sistema use tema claro. */
+:root[data-phase='night'] {
+  --bg: #0f1b2a;
+  --accent: #f2b880;
+  --text: #e6edf3;
+  --text-muted: #a9b6c2;
+  --surface: rgb(255 255 255 / 0.05);
+  --line: rgb(230 237 243 / 0.15);
+}

@@ -1,0 +1,16 @@
+<article class="card">
+  <header>
+    <h3>{{ level().name }}</h3>
+    <span class="bars" role="img" [attr.aria-label]="'Nivel ' + level().rank + ' de ' + maxRank">
+      @for (bar of bars; track bar) {
+        <span class="bar" [class.filled]="bar <= level().rank" [style.height.rem]="0.35 + bar * 0.25"></span>
+      }
+    </span>
+  </header>
+  <p class="muted">{{ level().description }}</p>
+  <ul class="chips">
+    @for (skill of level().skills; track skill) {
+      <li>{{ skill }}</li>
+    }
+  </ul>
+</article>

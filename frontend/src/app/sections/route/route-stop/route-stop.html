@@ -1,0 +1,8 @@
+<article class="card" [class.parallel]="stop().parallel">
+  @if (stop().parallel) {
+    <p class="tag">En paralelo</p>
+  }
+  <h3>{{ stop().name }}</h3>
+  <p class="muted">{{ stop().role }} · {{ stop().period }}</p>
+  <p>{{ stop().summary }}</p>
+</article>

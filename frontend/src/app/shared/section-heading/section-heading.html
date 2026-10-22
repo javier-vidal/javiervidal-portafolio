@@ -1,0 +1,5 @@
+<p class="time"><time>{{ time() }}</time></p>
+<h2 [id]="headingId()">{{ heading() }}</h2>
+@if (intro(); as text) {
+  <p class="intro">{{ text }}</p>
+}

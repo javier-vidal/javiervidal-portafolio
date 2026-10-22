@@ -1,0 +1,9 @@
+# Variables de entorno
+.env
+.env.*
+!.env.example
+
+# Sistema y editores
+.DS_Store
+.vscode/
+.idea/

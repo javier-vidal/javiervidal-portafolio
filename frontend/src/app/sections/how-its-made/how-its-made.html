@@ -1,0 +1,24 @@
+<section id="bajo-el-capo" class="section" aria-labelledby="bajo-el-capo-title">
+  <app-section-heading time="21:00" [heading]="section.title" [intro]="section.intro" headingId="bajo-el-capo-title" />
+
+  <dl class="details">
+    @for (detail of details; track detail.label) {
+      <div>
+        <dt>{{ detail.label }}</dt>
+        <dd>{{ detail.text }}</dd>
+      </div>
+    }
+  </dl>
+
+  <h3>Lighthouse</h3>
+  <dl class="scores">
+    @for (item of scores; track item.label) {
+      <div class="card">
+        <dt class="muted">{{ item.label }}</dt>
+        <dd>{{ item.score ?? 'Pendiente' }}</dd>
+      </div>
+    }
+  </dl>
+
+  <p><a [href]="repoLink.href" rel="noopener">{{ repoLink.label }}</a></p>
+</section>

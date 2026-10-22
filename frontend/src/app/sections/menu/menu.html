@@ -1,0 +1,8 @@
+<section id="carta" class="section" aria-labelledby="carta-title">
+  <app-section-heading time="15:00" [heading]="section.title" [intro]="section.intro" headingId="carta-title" />
+  <ul class="dishes">
+    @for (project of projects; track project.name) {
+      <li><app-dish-card [project]="project" /></li>
+    }
+  </ul>
+</section>

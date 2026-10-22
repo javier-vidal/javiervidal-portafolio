@@ -1,0 +1,11 @@
+name: javiervidal-portafolio
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "4210:4210"
+    # Solo se montan las carpetas editables para recargar al guardar.
+    volumes:
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public

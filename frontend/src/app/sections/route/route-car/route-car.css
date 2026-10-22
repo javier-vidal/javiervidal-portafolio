@@ -1,0 +1,22 @@
+/* El host ocupa la columna de la ruta; el auto se mueve dentro de ella. */
+:host {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 2rem;
+}
+
+.car {
+  position: absolute;
+  top: calc(var(--progress, 0) * (100% - 2rem));
+  left: 0;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--bg);
+  color: var(--accent);
+  transition: top 0.2s ease-out;
+}

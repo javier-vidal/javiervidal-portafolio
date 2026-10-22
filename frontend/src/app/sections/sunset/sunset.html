@@ -1,0 +1,13 @@
+<section id="contacto" class="section" aria-labelledby="contacto-title">
+  <app-section-heading time="18:00" [heading]="contact.title" headingId="contacto-title" />
+  <p>{{ contact.text }}</p>
+  <ul class="links">
+    <li><a [href]="'mailto:' + contact.email">{{ contact.email }}</a></li>
+    @if (contact.linkedinUrl; as linkedinUrl) {
+      <li><a [href]="linkedinUrl" rel="noopener">LinkedIn</a></li>
+    }
+    @if (contact.cvUrl; as cvUrl) {
+      <li><a [href]="cvUrl" download>Descargar CV</a></li>
+    }
+  </ul>
+</section>

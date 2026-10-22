@@ -1,0 +1,72 @@
+@import './styles/tokens.css';
+@import './styles/themes.css';
+@import './styles/motion.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  transition:
+    background-color 0.8s ease,
+    color 0.8s ease;
+}
+
+a {
+  color: var(--accent);
+  text-underline-offset: 0.2em;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Clases compartidas por las secciones. */
+.section {
+  padding: 4rem 0;
+}
+
+.card {
+  padding: 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.card > p:last-child {
+  margin-bottom: 0;
+}
+
+.muted {
+  color: var(--text-muted);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chips li {
+  padding: 0.15rem 0.65rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.875rem;
+}

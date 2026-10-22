@@ -1,0 +1,16 @@
+<article class="card">
+  <p class="labels">
+    <span class="course">{{ project().course }}</span>
+    <span class="status">{{ project().status }}</span>
+  </p>
+  <h3>{{ project().name }}</h3>
+  <p>{{ project().description }}</p>
+  <ul class="chips" aria-label="Ingredientes">
+    @for (item of project().stack; track item) {
+      <li>{{ item }}</li>
+    }
+  </ul>
+  @if (project().link; as link) {
+    <p><a [href]="link.href">{{ link.label }}</a></p>
+  }
+</article>

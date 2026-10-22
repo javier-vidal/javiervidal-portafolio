@@ -1,0 +1,10 @@
+/* Sin transiciones para quien prefiere menos movimiento. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0s !important;
+    animation-duration: 0s !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,11 @@
+<section id="inicio" class="section" aria-labelledby="inicio-title">
+  <p class="time"><time>06:00</time> · Amanecer</p>
+  <h1 id="inicio-title">{{ profile.greeting }}</h1>
+  <p class="role">{{ profile.subtitle }}</p>
+  <p class="summary">{{ profile.summary }}</p>
+  <p class="actions">
+    @for (action of profile.actions; track action.href; let first = $first) {
+      <a class="button" [class.primary]="first" [href]="action.href">{{ action.label }}</a>
+    }
+  </p>
+</section>

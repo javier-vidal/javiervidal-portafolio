@@ -1,0 +1,13 @@
+<button type="button" class="toggle" [attr.aria-expanded]="expanded()" (click)="toggle()">
+  <span>Los inicios</span>
+  <span class="muted">{{ expanded() ? 'Ocultar' : 'Ver ' + stops().length + ' paradas' }}</span>
+</button>
+
+@if (expanded()) {
+  <p class="intro muted">{{ intro() }}</p>
+  <ol class="stops">
+    @for (stop of stops(); track stop.name) {
+      <li><app-route-stop [stop]="stop" /></li>
+    }
+  </ol>
+}

@@ -1,0 +1,14 @@
+<section id="entrenamiento" class="section" aria-labelledby="entrenamiento-title">
+  <app-section-heading
+    time="09:00"
+    [heading]="section.title"
+    [intro]="section.intro"
+    headingId="entrenamiento-title"
+  />
+  <ol class="levels">
+    @for (level of levels; track level.name) {
+      <li><app-skill-level [level]="level" /></li>
+    }
+  </ol>
+  <p class="footnote muted">{{ section.footnote }}</p>
+</section>

@@ -1,0 +1,26 @@
+.timeline {
+  position: relative;
+  padding-left: 3rem;
+}
+
+/* El camino por donde avanza el auto. */
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(1rem - 1px);
+  border-left: 2px dashed var(--line);
+}
+
+.stops {
+  display: grid;
+  gap: 1rem;
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.education {
+  margin: 1.5rem 0 0;
+}

@@ -1,0 +1,23 @@
+:host {
+  display: block;
+  margin-bottom: 1.5rem;
+}
+
+.time {
+  margin: 0;
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+
+h2 {
+  margin: 0.25rem 0 0;
+  font-size: 1.75rem;
+  line-height: 1.2;
+}
+
+.intro {
+  margin: 0.75rem 0 0;
+  color: var(--text-muted);
+}

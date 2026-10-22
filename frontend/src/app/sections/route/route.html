@@ -1,0 +1,17 @@
+<section id="ruta" class="section" aria-labelledby="ruta-title">
+  <app-section-heading time="12:00" [heading]="section.title" [intro]="section.intro" headingId="ruta-title" />
+  <div class="timeline" #timeline>
+    <app-route-car [progress]="carProgress()" />
+    <ol class="stops">
+      @for (stop of mainStops; track stop.name) {
+        <li><app-route-stop [stop]="stop" /></li>
+      }
+    </ol>
+    <app-early-days
+      [intro]="section.earlyDaysIntro"
+      [stops]="earlyStops"
+      (expandedChange)="onEarlyDaysToggle()"
+    />
+  </div>
+  <p class="education muted">{{ section.education }}</p>
+</section>
