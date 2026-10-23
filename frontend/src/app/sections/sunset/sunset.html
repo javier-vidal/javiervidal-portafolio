@@ -1,13 +1,23 @@
 <section #section id="contacto" class="section" aria-labelledby="contacto-title">
   <app-section-heading time="18:00" [heading]="contact.title" headingId="contacto-title" />
   <p>{{ contact.text }}</p>
+
+  @if (contact.linkedinUrl; as linkedinUrl) {
+    <a class="linkedin" [href]="linkedinUrl" target="_blank" rel="noopener noreferrer">
+      <app-icon name="linkedin" />
+      <span>{{ contact.linkedinLabel }}<span class="sr-only"> (se abre en una pestaña nueva)</span></span>
+    </a>
+  }
+
+  <h3 class="form-title">{{ contact.formTitle }}</h3>
   <!-- El formulario se descarga aparte, cuando el navegador queda libre tras cargar la pagina. -->
   @defer (on idle) {
     <app-contact-form />
   } @placeholder {
     <div class="form-placeholder"></div>
   }
-  <p class="alternatives">{{ contact.alternativesText }}</p>
+
+  <p class="email-text">{{ contact.emailText }}</p>
   <ul class="links">
     <li>
       <a class="icon-link" [href]="'mailto:' + contact.email">
@@ -15,14 +25,6 @@
         <span>{{ contact.email }}</span>
       </a>
     </li>
-    @if (contact.linkedinUrl; as linkedinUrl) {
-      <li>
-        <a class="icon-link" [href]="linkedinUrl" target="_blank" rel="noopener noreferrer">
-          <app-icon name="linkedin" />
-          <span>LinkedIn<span class="sr-only"> (se abre en una pestaña nueva)</span></span>
-        </a>
-      </li>
-    }
     @if (contact.cvUrl; as cvUrl) {
       <li><a [href]="cvUrl" download>Descargar CV</a></li>
     }

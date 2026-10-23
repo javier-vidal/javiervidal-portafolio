@@ -8,6 +8,7 @@ describe('errorMessage', () => {
     expect(errorMessage('SEND_FAILED')).toContain('No se pudo enviar tu mensaje');
     expect(errorMessage('NETWORK_ERROR')).toContain('conexión');
     expect(errorMessage('TIMEOUT')).toContain('tardó demasiado');
+    expect(errorMessage('DAILY_LIMIT_REACHED')).toContain('Escríbeme por LinkedIn');
   });
 
   it('tells how long to wait when the limit is reached', () => {

@@ -44,6 +44,8 @@ export function errorMessage(code: string, retryAfterSeconds?: number): string {
       const wait = minutes ? `en ${minutes} ${minutes === 1 ? 'minuto' : 'minutos'}` : 'en unos minutos';
       return `Enviaste varios mensajes seguidos. Intenta de nuevo ${wait}.`;
     }
+    case 'DAILY_LIMIT_REACHED':
+      return 'Hoy el formulario ya recibió todos los mensajes que puede enviar. Escríbeme por LinkedIn, con el botón de más arriba, y te responderé pronto.';
     case 'CAPTCHA_FAILED':
       return 'No se pudo confirmar que eres una persona. Completa la verificación y vuelve a enviar.';
     case 'CAPTCHA_UNAVAILABLE':

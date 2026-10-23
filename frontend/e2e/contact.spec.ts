@@ -75,6 +75,31 @@ test.beforeEach(async ({ page }) => {
   await page.locator('#contacto').scrollIntoViewIfNeeded();
 });
 
+test('offers LinkedIn first, before the form', async ({ page }) => {
+  const linkedin = page.getByRole('link', { name: /Escríbeme por LinkedIn/ });
+  await expect(linkedin).toBeVisible();
+  await expect(linkedin).toHaveAttribute('href', /linkedin\.com\/in\//);
+  await expect(linkedin).toHaveAttribute('target', '_blank');
+  await expect(page.getByRole('heading', { name: '¿Prefieres escribirme directo?' })).toBeVisible();
+
+  const linkedinFirst = await page.evaluate(() => {
+    const link = document.querySelector('#contacto a.linkedin');
+    const form = document.querySelector('#contacto form');
+    return !!link && !!form && !!(link.compareDocumentPosition(form) & Node.DOCUMENT_POSITION_FOLLOWING);
+  });
+  expect(linkedinFirst).toBe(true);
+  await expect(page.getByRole('link', { name: 'dev@javiervidal.cl' })).toBeVisible();
+});
+
+test('suggests LinkedIn when the daily limit is reached', async ({ page }) => {
+  await mockApi(page, 429, { error: { code: 'DAILY_LIMIT_REACHED', requestId: 'abc' } });
+  await fillForm(page);
+  await page.getByRole('button', { name: 'Enviar mensaje' }).click();
+
+  await expect(page.getByRole('status')).toHaveText(/Escríbeme por LinkedIn/);
+  await expect(page.getByRole('status')).not.toContainText('DAILY_LIMIT_REACHED');
+});
+
 test('wakes the API once when the contact section appears', async ({ page }) => {
   await expect.poll(() => healthChecks).toBe(1);
   await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));

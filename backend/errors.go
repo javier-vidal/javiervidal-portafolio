@@ -15,6 +15,7 @@ const (
 	codeCaptchaFailed        = "CAPTCHA_FAILED"
 	codeCaptchaUnavailable   = "CAPTCHA_UNAVAILABLE"
 	codeSendFailed           = "SEND_FAILED"
+	codeDailyLimitReached    = "DAILY_LIMIT_REACHED"
 	codeOriginNotAllowed     = "ORIGIN_NOT_ALLOWED"
 	codeNotFound             = "NOT_FOUND"
 	codeMethodNotAllowed     = "METHOD_NOT_ALLOWED"

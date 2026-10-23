@@ -14,6 +14,8 @@ import (
 const (
 	contactLimit  = 5
 	contactWindow = 10 * time.Minute
+	// Tope global de mensajes enviados por dia, para no agotar la cuota de Resend.
+	contactDailyLimit = 40
 )
 
 func main() {
@@ -33,6 +35,7 @@ func main() {
 
 	contact := &contactHandler{
 		limiter:  newRateLimiter(contactLimit, contactWindow, time.Now),
+		daily:    newDailyCap(contactDailyLimit, time.Now),
 		verifier: newTurnstileVerifier(cfg.TurnstileSecretKey),
 		mailer:   m,
 		clientIP: clientIPFunc(cfg.Env),

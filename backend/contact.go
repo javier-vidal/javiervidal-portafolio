@@ -26,6 +26,7 @@ type contactRequest struct {
 
 type contactHandler struct {
 	limiter  *rateLimiter
+	daily    *dailyCap
 	verifier captchaVerifier
 	mailer   mailer
 	clientIP func(*http.Request) string
@@ -67,6 +68,19 @@ func (h *contactHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		writeError(w, r, http.StatusForbidden, codeCaptchaFailed, nil)
 		return
 	}
+
+	// Se aparta un cupo del tope diario; si al final no se envia, el defer lo devuelve.
+	if !h.daily.reserve() {
+		writeError(w, r, http.StatusTooManyRequests, codeDailyLimitReached, nil)
+		return
+	}
+	sent := false
+	defer func() {
+		if !sent {
+			h.daily.release()
+		}
+	}()
+
 	valid, err := h.verifier.verify(r.Context(), req.TurnstileToken, ip)
 	if err != nil {
 		h.logError(r, "captcha verification failed", err)
@@ -88,6 +102,7 @@ func (h *contactHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		writeError(w, r, http.StatusBadGateway, codeSendFailed, nil)
 		return
 	}
+	sent = true
 	writeOK(w, r, "SENT")
 }
 

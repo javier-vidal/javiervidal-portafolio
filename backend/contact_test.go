@@ -40,14 +40,21 @@ type testEnv struct {
 	router   http.Handler
 	mailer   *fakeMailer
 	verifier *fakeVerifier
+	daily    *dailyCap
 	logs     *bytes.Buffer
 }
 
 func newTestEnv() *testEnv {
-	env := &testEnv{mailer: &fakeMailer{}, verifier: &fakeVerifier{valid: true}, logs: &bytes.Buffer{}}
+	env := &testEnv{
+		mailer:   &fakeMailer{},
+		verifier: &fakeVerifier{valid: true},
+		daily:    newDailyCap(contactDailyLimit, time.Now),
+		logs:     &bytes.Buffer{},
+	}
 	logger := newLogger(env.logs)
 	contact := &contactHandler{
 		limiter:  newRateLimiter(contactLimit, contactWindow, time.Now),
+		daily:    env.daily,
 		verifier: env.verifier,
 		mailer:   env.mailer,
 		clientIP: remoteIP,

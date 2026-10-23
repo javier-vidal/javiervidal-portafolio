@@ -1,9 +1,33 @@
+/* Via principal de contacto. El logo toma el color del texto del boton, en un solo tono. */
+.linkedin {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  margin: 1.5rem 0 0;
+  padding: 0.85rem 1.5rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--bg);
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.linkedin:hover {
+  text-decoration: underline;
+}
+
+.form-title {
+  margin: 3rem 0 0;
+  font-size: 1.25rem;
+}
+
 /* Reserva el alto aproximado del formulario para que la pagina no salte al cargarlo. */
 .form-placeholder {
   min-height: 36rem;
 }
 
-.alternatives {
+.email-text {
   margin: 2.5rem 0 0;
   color: var(--text-muted);
 }
