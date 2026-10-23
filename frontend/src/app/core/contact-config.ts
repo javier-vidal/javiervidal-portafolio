@@ -11,10 +11,10 @@ const LOCAL: ContactConfig = {
   turnstileSiteKey: '1x00000000000000000000AA',
 };
 
-// TODO: Reemplazar al desplegar con la URL de Render y la site key real de Turnstile.
+// La site key es publica: Cloudflare la expone en el navegador. La clave secreta vive solo en Render.
 const PRODUCTION: ContactConfig = {
-  apiUrl: 'https://REEMPLAZAR-API.onrender.com',
-  turnstileSiteKey: 'REEMPLAZAR-SITE-KEY',
+  apiUrl: 'https://javiervidal-portafolio-api.onrender.com',
+  turnstileSiteKey: '0x4AAAAAAFh2JDsSupKh3zLA',
 };
 
 /** En desarrollo (ng serve) usa la API local; en el build de produccion, la publicada. */

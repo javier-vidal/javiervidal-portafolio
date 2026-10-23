@@ -18,7 +18,7 @@ export const MAIN_STOPS: ExperienceStop[] = [
   {
     name: 'Tecnova IT Solutions',
     role: 'Development Engineer',
-    period: 'Marzo 2025 – Actualidad',
+    period: 'Marzo 2026 – Actualidad',
     summary:
       'Desarrollo aplicaciones para el sector público con Next.js y React en el frontend, y Node.js con Express en el backend, organizado en capas y conectado a PostgreSQL y MongoDB. Trabajo con autenticación en AWS Cognito, uso Docker en el desarrollo y acompaño los despliegues en Kubernetes mediante GitLab CI/CD, revisando y siguiendo los pipelines cuando algo falla.',
   },

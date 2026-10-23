@@ -51,7 +51,7 @@ function loadTurnstile(doc: Document): Promise<TurnstileApi> {
 @Component({
   selector: 'app-turnstile-widget',
   template: '<div #container></div>',
-  styles: ':host { display: block; min-height: 65px; }',
+  styles: ':host { display: block; }',
 })
 export class TurnstileWidget {
   readonly siteKey = input.required<string>();
@@ -107,6 +107,8 @@ export class TurnstileWidget {
     }
     this.widgetId = this.api.render(element, {
       sitekey: this.siteKey(),
+      // Solo se muestra si Cloudflare necesita que la persona interactue; el tema sigue al sistema.
+      appearance: 'interaction-only',
       theme: 'auto',
       language: 'es',
       size: 'flexible',
