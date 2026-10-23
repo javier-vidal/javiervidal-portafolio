@@ -6,7 +6,8 @@ import (
 )
 
 // rateLimiter permite un numero de peticiones por IP dentro de una ventana fija.
-// Vive en memoria, por eso Cloud Run debe tener una sola instancia.
+// Vive en memoria: funciona porque el plan gratuito de Render usa una sola instancia,
+// y se reinicia cada vez que el servicio se duerme.
 type rateLimiter struct {
 	mu        sync.Mutex
 	limit     int

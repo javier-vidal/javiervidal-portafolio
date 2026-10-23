@@ -26,6 +26,7 @@ export const SUCCESS_MESSAGE = '¡Gracias! Tu mensaje fue enviado y te responder
 export const INVALID_FORM_MESSAGE = 'Revisa los campos marcados antes de enviar.';
 export const TOKEN_PENDING_MESSAGE =
   'Espera a que termine la verificación de seguridad o complétala, y vuelve a enviar.';
+export const SLOW_SEND_MESSAGE = 'Enviando, puede tardar unos segundos…';
 export const TURNSTILE_FAILED_MESSAGE =
   'No se pudo cargar la verificación de seguridad. Recarga la página o escríbeme al correo.';
 
@@ -49,6 +50,8 @@ export function errorMessage(code: string, retryAfterSeconds?: number): string {
       return 'La verificación de seguridad no está disponible ahora. Intenta de nuevo en unos minutos.';
     case 'SEND_FAILED':
       return 'No se pudo enviar tu mensaje. Intenta más tarde o escríbeme directamente al correo.';
+    case 'TIMEOUT':
+      return 'El servidor tardó demasiado en responder. Intenta de nuevo en un momento.';
     case 'NETWORK_ERROR':
       return 'No hay conexión con el servidor. Revisa tu conexión e intenta de nuevo.';
     default:

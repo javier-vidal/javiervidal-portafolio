@@ -266,3 +266,30 @@ func TestRouterErrors(t *testing.T) {
 		}
 	}
 }
+
+func TestHealth(t *testing.T) {
+	env := newTestEnv()
+	for range contactLimit + 3 {
+		rec := httptest.NewRecorder()
+		env.router.ServeHTTP(rec, httptest.NewRequest(http.MethodGet, healthPath, nil))
+		if rec.Code != http.StatusOK || strings.TrimSpace(rec.Body.String()) != `{"status":"ok"}` {
+			t.Fatalf("got %d %s", rec.Code, rec.Body.String())
+		}
+	}
+
+	if rec := env.postJSON(t, validBody()); rec.Code != http.StatusOK {
+		t.Errorf("health checks must not count toward the rate limit, got %d", rec.Code)
+	}
+	if env.verifier.calls != 1 || len(env.mailer.sent) != 1 {
+		t.Error("health checks must not call external services")
+	}
+	if strings.Contains(env.logs.String(), healthPath) {
+		t.Errorf("health checks must not be logged:\n%s", env.logs.String())
+	}
+
+	rec := httptest.NewRecorder()
+	env.router.ServeHTTP(rec, httptest.NewRequest(http.MethodPost, healthPath, nil))
+	if rec.Code != http.StatusMethodNotAllowed || errorCode(t, rec).Code != codeMethodNotAllowed {
+		t.Errorf("POST %s: got %d, want 405", healthPath, rec.Code)
+	}
+}

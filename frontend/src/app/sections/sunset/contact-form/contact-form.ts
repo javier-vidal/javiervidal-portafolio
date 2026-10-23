@@ -4,6 +4,7 @@ import { sendContact } from '../../../core/contact-api';
 import { contactConfig } from '../../../core/contact-config';
 import {
   INVALID_FORM_MESSAGE,
+  SLOW_SEND_MESSAGE,
   SUCCESS_MESSAGE,
   TOKEN_PENDING_MESSAGE,
   TURNSTILE_FAILED_MESSAGE,
@@ -24,7 +25,10 @@ interface ContactModel {
 const EMPTY: ContactModel = { name: '', email: '', message: '', website: '' };
 const FIELDS: ContactField[] = ['name', 'email', 'message'];
 
-type Status = { kind: 'success' | 'error'; text: string } | null;
+// Si la API estaba dormida el envio tarda; pasado este tiempo se avisa a la persona.
+const SLOW_SEND_AFTER_MS = 3000;
+
+type Status = { kind: 'success' | 'error' | 'info'; text: string } | null;
 
 @Component({
   selector: 'app-contact-form',
@@ -82,11 +86,16 @@ export class ContactForm {
       return undefined;
     }
 
+    const slowNotice = setTimeout(
+      () => this.status.set({ kind: 'info', text: SLOW_SEND_MESSAGE }),
+      SLOW_SEND_AFTER_MS,
+    );
     const result = await sendContact(this.config.apiUrl, {
       ...this.model(),
       elapsedMs: Math.round(performance.now() - this.shownAt),
       turnstileToken: token,
     });
+    clearTimeout(slowNotice);
     this.turnstile().reset();
 
     if (result.ok) {

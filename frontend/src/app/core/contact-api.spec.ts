@@ -1,4 +1,4 @@
-import { ContactPayload, sendContact } from './contact-api';
+import { ContactPayload, SEND_TIMEOUT_MS, sendContact, wakeApi } from './contact-api';
 
 const payload: ContactPayload = {
   name: 'Ana Pérez',
@@ -55,5 +55,29 @@ describe('sendContact', () => {
       throw new TypeError('Failed to fetch');
     };
     expect(await sendContact('', payload, fetchFn)).toEqual({ ok: false, code: 'NETWORK_ERROR' });
+  });
+
+  it('gives up after a timeout long enough for a cold start', async () => {
+    let signal: AbortSignal | null | undefined;
+    const fetchFn: typeof fetch = async (_input, init) => {
+      signal = init?.signal;
+      throw new DOMException('The operation timed out.', 'TimeoutError');
+    };
+    expect(await sendContact('', payload, fetchFn)).toEqual({ ok: false, code: 'TIMEOUT' });
+    expect(signal).toBeInstanceOf(AbortSignal);
+    expect(SEND_TIMEOUT_MS).toBeGreaterThanOrEqual(60_000);
+  });
+});
+
+describe('wakeApi', () => {
+  it('calls the health endpoint and ignores failures', async () => {
+    const urls: string[] = [];
+    const fetchFn: typeof fetch = async (input) => {
+      urls.push(String(input));
+      throw new TypeError('Failed to fetch');
+    };
+    expect(() => wakeApi('http://localhost:8090', fetchFn)).not.toThrow();
+    await Promise.resolve();
+    expect(urls).toEqual(['http://localhost:8090/api/health']);
   });
 });

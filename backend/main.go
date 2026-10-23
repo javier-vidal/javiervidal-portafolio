@@ -48,7 +48,7 @@ func main() {
 		IdleTimeout:       60 * time.Second,
 	}
 
-	// Cloud Run envia SIGTERM antes de detener el contenedor.
+	// Render envia SIGTERM antes de detener el servicio, por ejemplo al desplegar o al dormirlo.
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()
 
@@ -69,8 +69,18 @@ func main() {
 	logger.Info("stopped")
 }
 
+const healthPath = "/api/health"
+
 func newRouter(cfg Config, contact http.Handler, logger *slog.Logger) http.Handler {
 	mux := http.NewServeMux()
+	// Health check de Render y despertador del frontend: sin limite por IP ni servicios externos.
+	mux.HandleFunc("GET "+healthPath, func(w http.ResponseWriter, r *http.Request) {
+		writeJSON(w, http.StatusOK, map[string]string{"status": "ok"})
+	})
+	mux.HandleFunc(healthPath, func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Allow", "GET")
+		writeError(w, r, http.StatusMethodNotAllowed, codeMethodNotAllowed, nil)
+	})
 	mux.Handle("POST /api/contact", contact)
 	mux.HandleFunc("/api/contact", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Allow", "POST")

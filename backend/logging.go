@@ -10,25 +10,9 @@ import (
 	"time"
 )
 
-// newLogger escribe JSON con los nombres de campo que entiende Cloud Logging.
+// newLogger escribe una linea JSON por evento; Render muestra la salida estandar en sus logs.
 func newLogger(out io.Writer) *slog.Logger {
-	return slog.New(slog.NewJSONHandler(out, &slog.HandlerOptions{
-		ReplaceAttr: func(groups []string, a slog.Attr) slog.Attr {
-			if len(groups) > 0 {
-				return a
-			}
-			switch a.Key {
-			case slog.MessageKey:
-				a.Key = "message"
-			case slog.LevelKey:
-				a.Key = "severity"
-				if a.Value.Any().(slog.Level) == slog.LevelWarn {
-					a.Value = slog.StringValue("WARNING")
-				}
-			}
-			return a
-		},
-	}))
+	return slog.New(slog.NewJSONHandler(out, nil))
 }
 
 // requestInfo acompana a cada peticion; los handlers anotan el resultado en Code.
@@ -63,8 +47,13 @@ func (s *statusRecorder) WriteHeader(status int) {
 }
 
 // withRequestLog registra una linea por peticion, solo con metadatos.
+// El health check se omite porque Render lo llama cada pocos segundos.
 func withRequestLog(logger *slog.Logger, next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path == healthPath {
+			next.ServeHTTP(w, r)
+			return
+		}
 		start := time.Now()
 		info := &requestInfo{ID: newRequestID()}
 		w.Header().Set("X-Request-Id", info.ID)

@@ -1,6 +1,7 @@
 import { Page, expect, test } from '@playwright/test';
 
 const API_URL = 'http://localhost:8090/api/contact';
+const HEALTH_URL = 'http://localhost:8090/api/health';
 
 // Turnstile simulado: entrega un token al renderizar y otro nuevo despues de cada reset.
 const FAKE_TURNSTILE = `
@@ -28,13 +29,20 @@ const CORS = {
   'Access-Control-Expose-Headers': 'Retry-After, X-Request-Id',
 };
 
-async function mockApi(page: Page, status: number, body: unknown, headers: Record<string, string> = {}) {
+async function mockApi(
+  page: Page,
+  status: number,
+  body: unknown,
+  headers: Record<string, string> = {},
+  delayMs = 0,
+) {
   const requests: Record<string, unknown>[] = [];
   await page.route(API_URL, async (route) => {
     if (route.request().method() === 'OPTIONS') {
       return route.fulfill({ status: 204, headers: CORS });
     }
     requests.push(route.request().postDataJSON());
+    await new Promise((resolve) => setTimeout(resolve, delayMs));
     return route.fulfill({
       status,
       headers: { ...CORS, ...headers },
@@ -52,12 +60,37 @@ async function fillForm(page: Page, email = 'ana@example.com') {
   await expect(page.getByText('Verificación simulada')).toBeVisible();
 }
 
+let healthChecks = 0;
+
 test.beforeEach(async ({ page }) => {
+  healthChecks = 0;
   await page.route('https://challenges.cloudflare.com/**', (route) =>
     route.fulfill({ contentType: 'application/javascript', body: FAKE_TURNSTILE }),
   );
+  await page.route(HEALTH_URL, (route) => {
+    healthChecks++;
+    return route.fulfill({ status: 200, headers: CORS, contentType: 'application/json', body: '{"status":"ok"}' });
+  });
   await page.goto('/');
   await page.locator('#contacto').scrollIntoViewIfNeeded();
+});
+
+test('wakes the API once when the contact section appears', async ({ page }) => {
+  await expect.poll(() => healthChecks).toBe(1);
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
+  await page.locator('#contacto').scrollIntoViewIfNeeded();
+  await page.waitForTimeout(300);
+  expect(healthChecks).toBe(1);
+});
+
+test('tells the visitor to wait when the API is slow to answer', async ({ page }) => {
+  await mockApi(page, 200, { ok: true }, {}, 4500);
+  await fillForm(page);
+  await page.getByRole('button', { name: 'Enviar mensaje' }).click();
+
+  await expect(page.getByRole('status')).toHaveText(/Enviando, puede tardar unos segundos/);
+  await expect(page.getByRole('button', { name: 'Enviando…' })).toBeDisabled();
+  await expect(page.getByRole('status')).toHaveText(/Gracias!/, { timeout: 10_000 });
 });
 
 test('sends the message and shows a success message', async ({ page }) => {

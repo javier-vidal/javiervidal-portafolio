@@ -11,9 +11,9 @@ const LOCAL: ContactConfig = {
   turnstileSiteKey: '1x00000000000000000000AA',
 };
 
-// TODO: Reemplazar al desplegar con la URL de Cloud Run y la site key real de Turnstile.
+// TODO: Reemplazar al desplegar con la URL de Render y la site key real de Turnstile.
 const PRODUCTION: ContactConfig = {
-  apiUrl: 'https://REEMPLAZAR-API.run.app',
+  apiUrl: 'https://REEMPLAZAR-API.onrender.com',
   turnstileSiteKey: 'REEMPLAZAR-SITE-KEY',
 };
 

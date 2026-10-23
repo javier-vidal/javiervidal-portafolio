@@ -7,22 +7,21 @@ import (
 )
 
 // clientIPFunc elige como obtener la IP segun el entorno.
-// En Cloud Run, su proxy agrega la IP real al final de X-Forwarded-For; las entradas
-// anteriores las puede inventar el cliente. En local no hay proxy y se usa la conexion.
+// En Render todo el trafico pasa por Cloudflare, que escribe CF-Connecting-IP en cada
+// peticion y reemplaza cualquier valor que mande el cliente. X-Forwarded-For no sirve:
+// Cloudflare agrega al final y deja intacto lo que el cliente haya inventado.
+// En local no hay proxy y se usa la conexion.
 func clientIPFunc(env string) func(*http.Request) string {
 	if env == envProduction {
-		return lastForwardedIP
+		return cloudflareIP
 	}
 	return remoteIP
 }
 
-func lastForwardedIP(r *http.Request) string {
-	header := r.Header.Get("X-Forwarded-For")
-	if header == "" {
-		return remoteIP(r)
-	}
-	parts := strings.Split(header, ",")
-	if ip := net.ParseIP(strings.TrimSpace(parts[len(parts)-1])); ip != nil {
+// Si falta la cabecera (por ejemplo, el health check interno de Render) se usa la
+// conexion. Nunca se recurre a X-Forwarded-For, que el cliente puede falsificar.
+func cloudflareIP(r *http.Request) string {
+	if ip := net.ParseIP(strings.TrimSpace(r.Header.Get("CF-Connecting-IP"))); ip != nil {
 		return ip.String()
 	}
 	return remoteIP(r)

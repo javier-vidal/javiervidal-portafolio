@@ -7,6 +7,7 @@ describe('errorMessage', () => {
     expect(errorMessage('CAPTCHA_UNAVAILABLE')).toContain('no está disponible');
     expect(errorMessage('SEND_FAILED')).toContain('No se pudo enviar tu mensaje');
     expect(errorMessage('NETWORK_ERROR')).toContain('conexión');
+    expect(errorMessage('TIMEOUT')).toContain('tardó demasiado');
   });
 
   it('tells how long to wait when the limit is reached', () => {
