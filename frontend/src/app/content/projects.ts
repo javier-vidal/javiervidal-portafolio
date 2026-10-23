@@ -29,8 +29,8 @@ export const PROJECTS: Project[] = [
     status: 'Servido',
     name: 'Este portafolio',
     description:
-      'El sitio que estás viendo. Prerenderizado para cargar rápido y posicionarse bien, accesible, adaptado a móviles y con un ciclo de día que avanza mientras recorres la página.',
-    stack: ['Angular 22', 'TypeScript', 'CSS', 'Cloudflare Pages'],
+      'El sitio que estás viendo, con una API propia para el formulario de contacto. Prerenderizado para cargar rápido y posicionarse bien, accesible, adaptado a móviles y con un ciclo de día que avanza mientras recorres la página.',
+    stack: ['Angular 22', 'TypeScript', 'Go', 'Cloudflare Pages', 'Render'],
     link: { label: 'Ver cómo está hecho', href: '#bajo-el-capo' },
   },
 ];

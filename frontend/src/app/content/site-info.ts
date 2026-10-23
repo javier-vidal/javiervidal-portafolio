@@ -19,6 +19,10 @@ export const SITE_DETAILS: SiteDetail[] = [
     text: 'Angular 22 con componentes standalone y signals, TypeScript y CSS sin frameworks de estilos.',
   },
   {
+    label: 'Backend',
+    text: 'API en Go con la biblioteca estándar, publicada en Render como contenedor Docker. Recibe los mensajes del formulario y los envía por correo con Resend.',
+  },
+  {
     label: 'Rendimiento',
     text: 'Cada página se prerenderiza al compilar, así que el contenido llega listo al navegador, sin esperar a que cargue JavaScript.',
   },
@@ -27,12 +31,16 @@ export const SITE_DETAILS: SiteDetail[] = [
     text: 'Se adapta al modo oscuro del sistema y respeta la preferencia de reducir movimiento.',
   },
   {
+    label: 'Seguridad',
+    text: 'Cloudflare Turnstile contra bots, límite de intentos por IP, tope diario de mensajes, validación en frontend y backend, y política de seguridad de contenido. No se almacenan datos personales.',
+  },
+  {
     label: 'Calidad',
-    text: 'Pruebas unitarias con Vitest y pruebas de extremo a extremo con Playwright, en escritorio y móvil.',
+    text: 'Pruebas unitarias con Vitest y pruebas de extremo a extremo con Playwright, en escritorio y móvil. La API se prueba con el paquete testing de Go.',
   },
   {
     label: 'Infraestructura',
-    text: 'Publicado en Cloudflare Pages, con despliegue automático desde GitHub en cada cambio a la rama principal. En desarrollo, todo corre en contenedores con Docker.',
+    text: 'El frontend está en Cloudflare Pages y la API en Render, ambos con despliegue automático desde GitHub en cada cambio a la rama principal. En desarrollo, todo corre en contenedores con Docker.',
   },
 ];
 
